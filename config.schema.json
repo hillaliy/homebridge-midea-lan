@@ -1,0 +1,39 @@
+{
+  "pluginAlias": "midea-lan",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Homebridge plugin for Midea AC",
+  "footerDisplay": "Created by @hillaliy",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Midea-Lan",
+        "type": "string",
+        "required": true,
+        "default": "Midea-Lan"
+      },
+      "user": {
+        "title": "Midea account email",
+        "type": "string",
+        "required": true
+      },
+      "password": {
+        "title": "Midea account password",
+        "type": "string",
+        "x-schema-form": {
+          "type": "password",
+          "required": true
+        }
+      },
+      "interval": {
+        "title": "Update interval in seconds",
+        "description": "Time in seconds between each status polling of the Midea devices, Default is 30",
+        "type": "integer",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 60
+      }
+    }
+  }
+}
