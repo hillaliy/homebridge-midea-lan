@@ -104,7 +104,7 @@ class MideaPlatform {
             const cloud = await this.midea_beautiful.connect_to_cloud$({
                 account: this.config['user'],
                 password: this.config['password'],
-                ...this.appCredentials.MSmartHome, //[this.config['supportedApps']],
+                ...this.appCredentials.msmarthome, //[this.config.supportedApps],
             });
             this.log.debug(await cloud.__dict__);
             this.log.info('Login successful');
@@ -121,14 +121,14 @@ class MideaPlatform {
             this.appliances = await this.midea_beautiful.find_appliances$({
                 cloud: this.cloud,
             });
-            this.log.info(`Found ${await this.appliances.length} devices`);
-            this.log.info(this.appliances);
-            this.log.info(this.appliances[0]);
-            for await (const [index, app] of await py(this.appliances)) {
+            this.log.debug(`Found ${await this.appliances.length} devices`);
+            // this.log.debug(this.appliances);
+            // this.log.info(this.appliances[0]);
+            for await (const [index, app] of await py.enumerate(this.appliances)) {
                 this.log.debug(await app);
                 const appJsonString = this.pythonToJson(await app.state.__dict__.__str__());
                 const appJson = JSON.parse(appJsonString);
-                console.log(appJson);
+                this.log.debug(appJson);
                 const id = appJson.id;
                 this.devices[id] = appJson;
                 for (const device of this.devices) {
@@ -165,7 +165,7 @@ class MideaPlatform {
             }
         }
         catch (error) {
-            this.log.error(`getUserList error: ${error}`);
+            this.log.error(error);
         }
     }
     async updateDevices() {
