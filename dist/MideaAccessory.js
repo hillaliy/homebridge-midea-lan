@@ -5,42 +5,48 @@ const MideaDeviceType_1 = require("./enums/MideaDeviceType");
 const MideaSwingMode_1 = require("./enums/MideaSwingMode");
 const MideaOperationalMode_1 = require("./enums/MideaOperationalMode");
 class MideaAccessory {
-    constructor(platform, accessory, _deviceId, _deviceType, _name, _userId) {
+    constructor(platform, accessory, _deviceId, _deviceType, _name, _address) {
         this.platform = platform;
         this.accessory = accessory;
         this._deviceId = _deviceId;
         this._deviceType = _deviceType;
         this._name = _name;
-        this._userId = _userId;
+        this._address = _address;
         this.deviceId = '';
         this.deviceType = MideaDeviceType_1.MideaDeviceType.AirConditioner;
         this.targetTemperature = 24;
         this.indoorTemperature = 0;
         this.outdoorTemperature = 0;
         this.useFahrenheit = false; // Default unit is Celsius. this is just to control the temperature unit of the AC's display. The target temperature setter always expects a celsius temperature (resolution of 0.5C), as does the midea API
+        this.ecoMode = false;
+        this.turboMode = false;
+        this.turboFan = false;
+        this.purifier = false;
+        this.dryer = false;
+        this.comfortSleep = false;
+        this.showScreen = true;
         this.currentHumidity = 0;
         this.targetHumidity = 35;
-        this.waterLevel = 0;
+        this.tankLevel = 0;
+        this.powerState = 0;
+        this.beepPrompt = true;
+        this.operationalMode = MideaOperationalMode_1.MideaOperationalMode.Off;
         this.fanSpeed = 0;
+        this.verticalSwing = false;
+        this.horizontalSwing = false;
         this.fanOnlyMode = false;
         this.temperatureSteps = 1;
         this.minTemperature = 17;
         this.maxTemperature = 30;
-        this.powerState = 0;
-        this.audibleFeedback = false;
         this.supportedSwingMode = MideaSwingMode_1.MideaSwingMode.None;
-        this.operationalMode = MideaOperationalMode_1.MideaOperationalMode.Off;
-        this.swingMode = 0;
-        this.ecoMode = false;
-        this.turboMode = false;
         this.name = '';
         this.model = '';
-        this.userId = '';
+        this.address = '';
         this.firmwareVersion = require('../package.json').version;
         this.deviceId = _deviceId;
         this.deviceType = _deviceType;
         this.name = _name;
-        this.userId = _userId;
+        this.address = _address;
         // Check for device specific overrides
         // SwingMode
         // let smode = this.platform.getDeviceSpecificOverrideValue(this.deviceId, 'supportedSwingMode');
@@ -263,7 +269,7 @@ class MideaAccessory {
                 // this.service.updateCharacteristic(this.platform.Characteristic.RelativeHumidityHumidifierThreshold, this.targetHumidity);
                 this.service.updateCharacteristic(this.platform.Characteristic.RotationSpeed, this.windSpeed());
                 this.service.updateCharacteristic(this.platform.Characteristic.SwingMode, this.SwingMode());
-                this.service.updateCharacteristic(this.platform.Characteristic.WaterLevel, this.waterLevel);
+                this.service.updateCharacteristic(this.platform.Characteristic.WaterLevel, this.tankLevel);
             }, 5000);
         }
         else {
@@ -289,7 +295,8 @@ class MideaAccessory {
         if (this.powerState !== value) {
             this.platform.log.debug(`Triggered SET Active To: ${value}`);
             this.powerState = value;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
+            console.log(this.deviceId);
         }
         ;
         callback(null);
@@ -353,7 +360,7 @@ class MideaAccessory {
                 this.operationalMode = MideaOperationalMode_1.MideaOperationalMode.Heating;
             }
             ;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -382,7 +389,7 @@ class MideaAccessory {
         ;
         if (this.targetTemperature !== value) {
             this.targetTemperature = value;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -434,7 +441,7 @@ class MideaAccessory {
                 this.fanSpeed = 102;
             }
             ;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -442,7 +449,7 @@ class MideaAccessory {
     ;
     // Get the current value of the "swingMode" characteristic
     SwingMode() {
-        if (this.swingMode !== 0) {
+        if (this.verticalSwing === true || this.horizontalSwing === true) {
             return this.platform.Characteristic.SwingMode.SWING_ENABLED;
         }
         else {
@@ -461,15 +468,17 @@ class MideaAccessory {
     handleSwingModeSet(value, callback) {
         this.platform.log.debug(`Triggered SET SwingMode To: ${value}`);
         // convert this.swingMode to a 0/1
-        if (this.swingMode !== value) {
-            if (value === 0) {
-                this.swingMode = 0;
+        if (this.SwingMode() !== value) {
+            if (value === 1) {
+                this.verticalSwing = true;
+                this.horizontalSwing = true;
             }
             else {
-                this.swingMode = this.supportedSwingMode;
+                this.verticalSwing = false;
+                this.horizontalSwing = false;
             }
             ;
-            // this.platform.sendUpdateToDevice(this)
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -498,7 +507,7 @@ class MideaAccessory {
                 this.useFahrenheit = false;
             }
             ;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -536,7 +545,7 @@ class MideaAccessory {
             this.powerState = this.platform.Characteristic.Active.INACTIVE;
         }
         ;
-        // this.platform.sendUpdateToDevice(this);
+        this.platform.sendUpdateToDevice(this.deviceId, this);
         callback(null);
     }
     ;
@@ -593,7 +602,7 @@ class MideaAccessory {
                 this.operationalMode = 0;
             }
             ;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -616,7 +625,7 @@ class MideaAccessory {
         if (this.targetHumidity !== value) {
             this.platform.log.debug(`Triggered SET RelativeHumidityDehumidifierThreshold To: ${value}`);
             this.targetHumidity = value;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -633,7 +642,7 @@ class MideaAccessory {
         if (this.targetHumidity !== value) {
             this.platform.log.debug(`Triggered SET RelativeHumidityDehumidifierThreshold ${value}`);
             this.targetHumidity = value;
-            // this.platform.sendUpdateToDevice(this);
+            this.platform.sendUpdateToDevice(this.deviceId, this);
         }
         ;
         callback(null);
@@ -678,14 +687,14 @@ class MideaAccessory {
             this.fanSpeed = 80;
         }
         ;
-        // this.platform.sendUpdateToDevice(this);
+        this.platform.sendUpdateToDevice(this.deviceId, this);
         callback(null);
     }
     ;
     // Handle requests to get the current value of the "WaterLevel" characteristic
     handleWaterLevelGet(callback) {
         this.platform.log.debug('Triggered GET WaterLevel');
-        callback(null, this.waterLevel);
+        callback(null, this.tankLevel);
     }
     ;
 }
