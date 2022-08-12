@@ -26,12 +26,32 @@
           "required": true
         }
       },
+      "appCredentials": {
+        "title": "Midea Registered app",
+        "type": "string",
+        "required": true,
+        "default": "NetHomePlus",
+        "oneOf": [
+          {
+            "title": "NetHomePlus",
+            "enum": ["NetHomePlus"]
+          },
+          {
+            "title": "MideaAir",
+            "enum": ["MideaAir"]
+          },
+          {
+            "title": "MSmartHome",
+            "enum": ["MSmartHome"]
+          }
+        ]
+      },
       "interval": {
-        "title": "Update interval in seconds",
-        "description": "Time in seconds between each status polling of the Midea devices, Default is 30",
+        "title": "Update interval in minutes",
+        "description": "Time in minute between each status polling of the Midea devices",
         "type": "integer",
         "default": 1,
-        "minimum": 0,
+        "minimum": 1,
         "maximum": 60
       }
     }
