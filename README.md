@@ -9,7 +9,9 @@
 
 [![Downloads](https://img.shields.io/npm/dt/homebridge-midea-lan.svg?color=critical)](https://www.npmjs.com/package/homebridge-midea-lan)
 [![Version](https://img.shields.io/npm/v/homebridge-midea-lan)](https://www.npmjs.com/package/homebridge-midea-lan)<br>
-[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins) [![Homebridge Discord](https://img.shields.io/discord/432663330281226270?color=728ED5&logo=discord&label=discord)](https://discord.gg/WE4eqqjZ)<br>
+[![Homebridge Discord](https://img.shields.io/discord/432663330281226270?color=728ED5&logo=discord&label=discord)](https://discord.gg/WE4eqqjZ)<br>
+
+<!-- [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins) -->
 
 # This project is still on development. Please don't open issues. I'll appreciate donation.
 
