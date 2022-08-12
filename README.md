@@ -5,7 +5,7 @@
 
 <SPAN ALIGN="CENTER">
 
-# homebridge-midea-lan
+# Homebridge Midea Lan
 
 [![Downloads](https://img.shields.io/npm/dt/homebridge-midea-lan.svg?color=critical)](https://www.npmjs.com/package/homebridge-midea-lan)
 [![Version](https://img.shields.io/npm/v/homebridge-midea-lan)](https://www.npmjs.com/package/homebridge-midea-lan)<br>
