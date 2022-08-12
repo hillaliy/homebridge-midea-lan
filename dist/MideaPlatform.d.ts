@@ -8,20 +8,23 @@ export declare class MideaPlatform implements DynamicPlatformPlugin {
     readonly Characteristic: typeof Characteristic;
     readonly accessories: PlatformAccessory[];
     mideaAccessories: MideaAccessory[];
-    devices: any;
     midea_beautiful: any;
     cloud: any;
     updateInterval: any;
+    refreshTimeout: any;
     appCredentials: any;
     appliances: any;
-    refreshTimeout: any;
+    devices: any;
+    accessToken: string;
+    key: string;
     constructor(log: Logger, config: PlatformConfig, api: API);
     onReady(): Promise<void>;
     configureAccessory(accessory: PlatformAccessory): void;
     login(): Promise<any>;
     getDeviceList(): Promise<void>;
     updateDevices(): Promise<void>;
+    sendUpdateToDevice(id: string, device?: MideaAccessory): Promise<void>;
     pythonToJson(objectString: any): any;
-    onUnload(): void;
+    getDeviceSpecificOverrideValue(deviceId: string, key: string): any;
 }
 //# sourceMappingURL=MideaPlatform.d.ts.map
