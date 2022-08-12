@@ -87,8 +87,8 @@ class MideaPlatform {
             });
             const cloudDict = await cloud.__dict__;
             this.log.debug(cloudDict);
-            this.accessToken = cloudDict.accessToken;
-            console.log(this.accessToken);
+            // this.accessToken = cloudDict.accessToken;
+            // console.log(this.accessToken)
             // this.key = cloudDict.key;
             // console.log(this.key)
             this.log.info('Login successful');
@@ -265,38 +265,6 @@ class MideaPlatform {
         ;
     }
     ;
-    // onUnload() {
-    //   try {
-    //     process.exit();
-    //     // this.updateInterval && clearInterval(this.updateInterval);
-    //     // this.refreshTimeout && clearTimeout(this.refreshTimeout);
-    //     this.log.debug('Process exit')
-    //   } catch (error: any) {
-    //     this.log.error(error);
-    //   }
-    // }
-    //   async onStateChange(id: string, state: ioBroker.State | null | undefined) {
-    //     if (state && !state.ack) {
-    //       const deviceId = id.split(".")[2];
-    //       const command = id.split(".").pop;
-    //       const index = Object.keys(this.devices).indexOf(deviceId);
-    //       const appliance = await this.appliances[index];
-    //       const setState = { cloud: this.cloud };
-    //       setState[command] = state.val;
-    //       this.log.debug(JSON.stringify(setState));
-    //       try {
-    //         await appliance.set_state$(setState);
-    //       } catch (error) {
-    //         this.log.error(error);
-    //         error.stack && this.log.error(error.stack);
-    //       }
-    //       clearTimeout(this.refreshTimeout);
-    //       this.refreshTimeout = setTimeout(async () => {
-    //         await this.updateDevices();
-    //       }, 10 * 1000);
-    //     }
-    //   }
-    // }
     pythonToJson(objectString) {
         objectString = objectString
             .replaceAll(/b'[^']*'/g, '\'\'')
