@@ -40,13 +40,13 @@ Add this to the platforms array in your config.json:
         "user": "MIDEA_ACCOUNT_EMAIL",
         "password": "MIDEA_PASSWORD",
         "registeredApp": "NetHomePlus",
-        "interval": 30,
+        "interval": 1,
         "platform": "midea-air"
     }
 
 ## Notes
 
-Befor installing this plugin you must install [midea-beautiful-air](https://github.com/nbogojevic/midea-beautiful-air) globaly using pip (pip install --upgrade midea-beautiful-air).
+⚠️ Befor installing this plugin you must install [midea-beautiful-air](https://github.com/nbogojevic/midea-beautiful-air) globaly using pip (pip install --upgrade midea-beautiful-air).
 
 ## Supported Devices
 
