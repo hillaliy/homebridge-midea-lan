@@ -96,9 +96,9 @@ This allows you to enable a Fan mode service.
 
 This allows you to enable Outdoor Temperature service, if the AC support.
 
-### Audible Feedback
+### Beep Prompt
 
-This set the Audible Feedback (beep sound).
+This set the Beep Feedback.
 
 ## Credits
 
