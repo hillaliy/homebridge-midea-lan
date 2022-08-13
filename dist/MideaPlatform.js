@@ -48,8 +48,6 @@ class MideaPlatform {
         };
         api.on('didFinishLaunching', () => {
             this.onReady();
-            // this.onUnload();
-            // this.onStateChange;
             this.log.debug('Executed didFinishLaunching callback');
         });
     }
@@ -87,12 +85,9 @@ class MideaPlatform {
             });
             const cloudDict = await cloud.__dict__;
             this.log.debug(cloudDict);
-            // this.accessToken = cloudDict.accessToken;
-            // console.log(this.accessToken)
-            // this.key = cloudDict.key;
-            // console.log(this.key)
+            this.accessToken = cloudDict.accessToken;
+            this.key = cloudDict.key;
             this.log.info('Login successful');
-            // this.setState("info.connection", true, true);
             return cloud;
         }
         catch (error) {
