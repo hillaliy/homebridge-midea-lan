@@ -4,7 +4,6 @@ export declare enum MideaOperationalMode {
     Cooling = 2,
     Dry = 3,
     Heating = 4,
-    FanOnly = 5,
-    CustomDry = 6
+    FanOnly = 5
 }
 //# sourceMappingURL=MideaOperationalMode.d.ts.map
