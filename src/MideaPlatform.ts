@@ -241,10 +241,9 @@ export class MideaPlatform implements DynamicPlatformPlugin {
 
   async sendUpdateToDevice(device?: MideaAccessory) {
     if (device) {
-      // const deviceId = id.split(".")[2];
-      // console.log(deviceId)
-      const command: any = device.deviceId.split(".").pop;
-      const index = Object.keys(this.devices).indexOf(device.deviceId);
+      const deviceId: any = device.deviceId.split("."[2]);
+      const command: any = device.deviceId.split(".").pop();
+      const index = Object.keys(this.devices).indexOf(deviceId);
       const appliance = await this.appliances[index];
       const setState = { cloud: this.cloud };
       let cmd: any = [];
@@ -270,9 +269,8 @@ export class MideaPlatform implements DynamicPlatformPlugin {
         cmd.tank_level = device.tankLevel;
       }
       setState[command] = cmd;
-      this.log.debug(`Send command to: ${device.name} (${device.deviceId})\n${cmd}`);
-      this.log.debug(JSON.stringify(setState));
-
+      this.log.debug(`Send command to: ${device.name} (${device.deviceId})`);
+      console.log(setState)
       try {
         await appliance.set_state$(setState);
       } catch (error: any) {
