@@ -308,8 +308,7 @@ export class MideaAccessory {
 		if (this.powerState !== value) {
 			this.platform.log.debug(`Triggered SET Active To: ${value}`);
 			this.powerState = value;
-			this.platform.sendUpdateToDevice(this.deviceId, this);
-			console.log(this.deviceId)
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -356,7 +355,7 @@ export class MideaAccessory {
 			} else if (value === this.platform.Characteristic.TargetHeaterCoolerState.HEAT) {
 				this.operationalMode = MideaOperationalMode.Heating;
 			};
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -379,7 +378,7 @@ export class MideaAccessory {
 		};
 		if (this.targetTemperature !== value) {
 			this.targetTemperature = value;
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -408,7 +407,7 @@ export class MideaAccessory {
 	handleRotationSpeedSet(value: CharacteristicValue, callback: CharacteristicSetCallback) {
 		this.platform.log.debug(`Triggered SET RotationSpeed To: ${value}`);
 		// transform values in percent
-		// values from device are 20.0="Silent",40.0="Low",60.0="Medium",80.0="High",102.0="Auto"
+		// values from device are: 20="Silent",40="Low",60="Medium",80="High",100="Full",102="Auto"
 		if (this.fanSpeed !== value) {
 			if (value <= 25) {
 				this.fanSpeed = 40;
@@ -419,7 +418,7 @@ export class MideaAccessory {
 			} else {
 				this.fanSpeed = 102;
 			};
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -448,7 +447,7 @@ export class MideaAccessory {
 				this.verticalSwing = false;
 				this.horizontalSwing = false;
 			};
-			this.platform.sendUpdateToDevice(this.deviceId, this)
+			this.platform.sendUpdateToDevice(this)
 		};
 		callback(null);
 	};
@@ -470,7 +469,7 @@ export class MideaAccessory {
 			} else {
 				this.useFahrenheit = false;
 			};
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -499,7 +498,7 @@ export class MideaAccessory {
 		} else if (value === 0 && this.powerState === 1) {
 			this.powerState = this.platform.Characteristic.Active.INACTIVE;
 		};
-		this.platform.sendUpdateToDevice(this.deviceId, this);
+		this.platform.sendUpdateToDevice(this);
 		callback(null);
 	};
 	// Outdoor Temperature Sensor
@@ -544,7 +543,7 @@ export class MideaAccessory {
 			} else if (value === this.platform.Characteristic.TargetHumidifierDehumidifierState.DEHUMIDIFIER) {
 				this.operationalMode = 0;
 			};
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -563,7 +562,7 @@ export class MideaAccessory {
 		if (this.targetHumidity !== value) {
 			this.platform.log.debug(`Triggered SET RelativeHumidityDehumidifierThreshold To: ${value}`);
 			this.targetHumidity = value;
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
@@ -577,13 +576,13 @@ export class MideaAccessory {
 		if (this.targetHumidity !== value) {
 			this.platform.log.debug(`Triggered SET RelativeHumidityDehumidifierThreshold ${value}`);
 			this.targetHumidity = value;
-			this.platform.sendUpdateToDevice(this.deviceId, this);
+			this.platform.sendUpdateToDevice(this);
 		};
 		callback(null);
 	};
 	// Get the current value of the "WindSpeed" characteristic
 	public windSpeed() {
-		// values from device are 40.0="Silent",60.0="Medium",80.0="High"
+		// values from device are 40="Silent",60="Medium",80="High"
 		// convert to good usable slider in homekit in percent
 		let currentValue = 0;
 		if (this.fanSpeed === 40) {
@@ -612,7 +611,7 @@ export class MideaAccessory {
 		} else if (value > 60 && value <= 100) {
 			this.fanSpeed = 80;
 		};
-		this.platform.sendUpdateToDevice(this.deviceId, this);
+		this.platform.sendUpdateToDevice(this);
 		callback(null);
 	};
 	// Handle requests to get the current value of the "WaterLevel" characteristic
