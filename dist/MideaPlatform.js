@@ -221,12 +221,12 @@ class MideaPlatform {
             this.log.error(error);
         }
     }
-    async sendUpdateToDevice(id, device) {
+    async sendUpdateToDevice(device) {
         if (device) {
             // const deviceId = id.split(".")[2];
             // console.log(deviceId)
-            const command = id.split(".").pop;
-            const index = Object.keys(this.devices).indexOf(id);
+            const command = device.deviceId.split(".").pop;
+            const index = Object.keys(this.devices).indexOf(device.deviceId);
             const appliance = await this.appliances[index];
             const setState = { cloud: this.cloud };
             let cmd = [];
