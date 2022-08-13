@@ -23,7 +23,7 @@ export declare class MideaPlatform implements DynamicPlatformPlugin {
     login(): Promise<any>;
     getDeviceList(): Promise<void>;
     updateDevices(): Promise<void>;
-    sendUpdateToDevice(id: string, device?: MideaAccessory): Promise<void>;
+    sendUpdateToDevice(device?: MideaAccessory): Promise<void>;
     pythonToJson(objectString: any): any;
     getDeviceSpecificOverrideValue(deviceId: string, key: string): any;
 }
