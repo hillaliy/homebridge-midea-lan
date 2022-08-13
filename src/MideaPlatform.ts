@@ -245,12 +245,12 @@ export class MideaPlatform implements DynamicPlatformPlugin {
     }
   }
 
-  async sendUpdateToDevice(id: string, device?: MideaAccessory) {
+  async sendUpdateToDevice(device?: MideaAccessory) {
     if (device) {
       // const deviceId = id.split(".")[2];
       // console.log(deviceId)
-      const command: any = id.split(".").pop;
-      const index = Object.keys(this.devices).indexOf(id);
+      const command: any = device.deviceId.split(".").pop;
+      const index = Object.keys(this.devices).indexOf(device.deviceId);
       const appliance = await this.appliances[index];
       const setState = { cloud: this.cloud };
       let cmd: any = [];
