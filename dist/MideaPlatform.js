@@ -218,10 +218,9 @@ class MideaPlatform {
     }
     async sendUpdateToDevice(device) {
         if (device) {
-            // const deviceId = id.split(".")[2];
-            // console.log(deviceId)
-            const command = device.deviceId.split(".").pop;
-            const index = Object.keys(this.devices).indexOf(device.deviceId);
+            const deviceId = device.deviceId.split("."[2]);
+            const command = device.deviceId.split(".").pop();
+            const index = Object.keys(this.devices).indexOf(deviceId);
             const appliance = await this.appliances[index];
             const setState = { cloud: this.cloud };
             let cmd = [];
@@ -248,8 +247,8 @@ class MideaPlatform {
                 cmd.tank_level = device.tankLevel;
             }
             setState[command] = cmd;
-            this.log.debug(`Send command to: ${device.name} (${device.deviceId})\n${cmd}`);
-            this.log.debug(JSON.stringify(setState));
+            this.log.debug(`Send command to: ${device.name} (${device.deviceId})`);
+            console.log(setState);
             try {
                 await appliance.set_state$(setState);
             }
