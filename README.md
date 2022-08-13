@@ -46,6 +46,8 @@ Add this to the platforms array in your config.json:
 
 ## Notes
 
+Befor installing this plugin you must install [midea-beautiful-air](https://github.com/nbogojevic/midea-beautiful-air) globaly using pip (pip install --upgrade midea-beautiful-air).
+
 ## Supported Devices
 
 This Plugin support Midea providers dongle - OSK102 / OSK103 / OSK105 (Hualing, Senville, Klimaire, AirCon, Century, Pridiom, Thermocore, Comfee, Alpine Home Air, Artel, Beko, Electrolux, Galactic, Idea, Inventor, Kaisai, Mitsui, Mr. Cool, Neoclima, Olimpia Splendid, Pioneer, QLIMA, Royal Clima, Qzen, Toshiba, Carrier, Goodman, Friedrich, Samsung, Kenmore, Trane, Lennox, LG, Electra and much more) and should be able to access all device in the user's account. However, many devices may not be supported or function incorrectly. This is due to the lack of documentation of the raw MSmart API. If you encounter any problems, please open a new issue and specify your device model.
