@@ -233,18 +233,11 @@ class MideaPlatform {
             if (device.deviceType === 172) {
                 cmd.target_temperature = device.targetTemperature;
                 cmd.fahrenheit = device.useFahrenheit;
-                cmd.turbo_fan = device.turboFan;
                 cmd.eco_mode = device.ecoMode;
                 cmd.turbo = device.turboMode;
-                cmd.purifier = device.purifier;
-                cmd.dryer = device.dryer;
-                cmd.comfort_sleep = device.comfortSleep;
-                cmd.show_screen = device.showScreen;
             }
             else if (device.deviceType === 161) {
-                cmd.current_humidity = device.currentHumidity;
                 cmd.target_humidity = device.targetHumidity;
-                cmd.tank_level = device.tankLevel;
             }
             setState[command] = cmd;
             this.log.debug(`Send command to: ${device.name} (${device.deviceId})`);
